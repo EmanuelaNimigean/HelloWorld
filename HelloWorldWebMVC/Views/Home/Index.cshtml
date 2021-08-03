@@ -2,7 +2,31 @@
     ViewData["Title"] = "Home Page";
 }
 
+@section scripts {
+    <script type="text/javascript" src="~/js/Index.js"></script>
+}
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Our team</h1>
+    <h2 class="display-3">Team members</h2>
+    <ul id="team-list">
+        <li>
+            Fineas
+        </li>
+        <li>
+            Patrick
+        </li>
+        <li>
+            Radu
+        </li>
+        <li>
+            Tudor
+        </li>
+        <li>
+            Emma
+        </li>
+    </ul>
+    <input type="text" id="nameField" title="e.g.Radu" />
+    <button id="createButton" title="Create">Create</button>
 </div>
+
