@@ -7,11 +7,11 @@
         
         $.ajax({
             method: "POST",
-            url: "https://localhost:44370/Home/AddTeamMember",
-            data: { "name": newcomerName },
-            success: function (result) =>
+            url: "/Home/AddTeamMember",
+            data: { name: newcomerName },
+            success: function (result) 
             {
-                $("#TeamMembers").append(`<li>${newcomerName}</li>`),
+                $("#teamMembers").append(`<li>${newcomerName}</li>`),
                 $("#nameField").val("")
             }
         })

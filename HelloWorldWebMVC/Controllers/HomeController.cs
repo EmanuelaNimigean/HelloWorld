@@ -4,6 +4,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using HelloWorldWeb.Services;
 using HelloWorldWebMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,33 +16,31 @@ namespace HelloWorldWebMVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
-        private readonly TeamInfo teamInfo;
+        // private readonly TeamInfo teamInfo;
+        private readonly ITeamService teamService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ITeamService teamService)
         {
             this.logger = logger;
-            this.teamInfo = new TeamInfo
-            {
-                Name = "Team1",
-                TeamMembers = new List<string>(new string[] { "Fineas", "Patrick", "Radu", "Tudor", "Ema" }),
-            };
+            this.teamService = teamService;
+            
         }
 
         [HttpGet]
         public int GetCount()
         {
-            return this.teamInfo.TeamMembers.Count;
+            return teamService.GetTeamInfo().TeamMembers.Count;
         }
 
         [HttpPost]
         public void AddTeamMember(string name)
         {
-            this.teamInfo.TeamMembers.Add(name);
+            teamService.AddTeamMember(name);
         }
 
         public IActionResult Index()
         {
-            return this.View(this.teamInfo);
+            return this.View(teamService.GetTeamInfo());
         }
 
         public IActionResult Privacy()
