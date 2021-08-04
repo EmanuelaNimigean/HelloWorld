@@ -4,7 +4,17 @@
         var newcomerName = $("#nameField").val();
 
         // Remember string interpolation
-        $("#team-list").append(`<li>${newcomerName}</li>`);
+        
+        $.ajax({
+            method: "POST",
+            url: "https://localhost:44370/Home/AddTeamMember",
+            data: { "name": newcomerName },
+            success: function (result) =>
+            {
+                $("#TeamMembers").append(`<li>${newcomerName}</li>`),
+                $("#nameField").val("")
+            }
+        })
 
         $("#nameField").val("");
     })
