@@ -31,7 +31,7 @@ namespace HelloWorldWebMVC.Controllers
             return teamInfo.TeamMembers.Count;
         }
 
-        [HttpGet]
+        [HttpPost]
         public void AddTeamMember(string name)
         {
             teamInfo.TeamMembers.Add(name);
