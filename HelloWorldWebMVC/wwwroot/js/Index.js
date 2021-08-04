@@ -8,10 +8,10 @@
         $.ajax({
             method: "POST",
             url: "/Home/AddTeamMember",
-            data: { name: newcomerName },
+            data: { "name": newcomerName },
             success: function (result) 
             {
-                $("#teamMembers").append(`<li>${newcomerName}</li>`),
+                $("#team-list").append(`<li>${newcomerName}</li>`),
                 $("#nameField").val("")
             }
         })

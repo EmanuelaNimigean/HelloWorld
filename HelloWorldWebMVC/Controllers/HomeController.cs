@@ -35,12 +35,12 @@ namespace HelloWorldWebMVC.Controllers
         [HttpPost]
         public void AddTeamMember(string name)
         {
-            teamService.AddTeamMember(name);
+            this.teamService.AddTeamMember(name);
         }
 
         public IActionResult Index()
         {
-            return this.View(teamService.GetTeamInfo());
+            return this.View(this.teamService.GetTeamInfo());
         }
 
         public IActionResult Privacy()
