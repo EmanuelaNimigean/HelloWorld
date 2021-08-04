@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hello World", "HelloWorld.Console\Hello World.csproj", "{9EC787E9-4FF6-4BFC-9717-576EE3E9F237}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorldWebMVC", "HelloWorldWebMVC\HelloWorldWebMVC.csproj", "{424BC694-84F9-4BB9-B426-7C89668E7B7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorldWebMVC", "HelloWorldWebMVC\HelloWorldWebMVC.csproj", "{424BC694-84F9-4BB9-B426-7C89668E7B7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5DA83B6C-6E9D-4A98-8DC9-9B050BA6C21F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
