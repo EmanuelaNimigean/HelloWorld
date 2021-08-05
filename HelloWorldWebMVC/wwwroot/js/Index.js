@@ -57,6 +57,7 @@ function deleteMember(index) {
             memberIndex: index
         },
         success: function (result) {
+            // console.log("deleete:"+ index);
             location.reload();
         }
     })

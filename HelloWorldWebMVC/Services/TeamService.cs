@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HelloWorldWebMVC.Models;
+
 namespace HelloWorldWeb.Services
 {
     public class TeamService : ITeamService
@@ -36,7 +37,10 @@ namespace HelloWorldWeb.Services
             //    {
             //        return member;
             //    }
+
             //}
+            //return null;
+            Console.WriteLine(id);
             return this.teamInfo.TeamMembers.Find(x => x.Id == id);
         }
 
@@ -49,7 +53,8 @@ namespace HelloWorldWeb.Services
 
         public void DeleteTeamMember(int index)
         {
-            this.teamInfo.TeamMembers.Remove(GetTeamMemberById(index));
+           
+            this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(index));
         }
 
     }
