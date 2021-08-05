@@ -1,7 +1,16 @@
 ﻿$(document).ready(function () {
     // see https://api.jquery.com/click/
     $("#clearButton").click(function () {
-        $("#nameField").val("")
+        $("#nameField").val("");
+        $('#createButton').prop('disabled', true);
+    });
+
+    $('#nameField').on('input change', function () {
+        if ($(this).val() != '') {
+            $('#createButton').prop('disabled', false);
+        } else {
+            $('#createButton').prop('disabled', true);
+        }
     });
 
     $("#createButton").click(function () {
@@ -21,11 +30,12 @@
                         <span class="delete fa fa-remove"></span>
                         <span class="edit fa fa-pencil"></span>
                     </li>`
-                ),
-                $("#nameField").val("")
+                );
+                $("#nameField").val("");
+                $('#createButton').prop('disabled', true);
             }
         })
 
-        $("#nameField").val("");
+     
     })
 });
