@@ -11,7 +11,13 @@
             data: { "name": newcomerName },
             success: function (result) 
             {
-                $("#team-list").append(`<li>${newcomerName}</li>`),
+                $("#team-list").append(
+                    `<li class="member">
+                        <span class="name">${newcomerName}</span>
+                        <span class="delete fa fa-remove"></span>
+                        <span class="edit fa fa-pencil"></span>
+                    </li>`
+                ),
                 $("#nameField").val("")
             }
         })
