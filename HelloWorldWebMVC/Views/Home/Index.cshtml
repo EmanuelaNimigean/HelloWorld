@@ -13,8 +13,8 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Our team</h1>
-    <h2 class="display-3">Team members</h2>
+    <h1 class="display-4">~Team1~</h1>
+    <h2 class="display-3">Team members:</h2>
     <ul id="team-list">
 
         @for (var i = 0; i < Model.TeamMembers.Count; i++)
@@ -23,19 +23,18 @@
 
             <li class="member">
                 <span class="memberName">
-                    @member
+                    @member.Name
                 </span>
-                <span class="delete fa fa-remove">
-                </span>
-                <span class="fa fa-pencil">
+                <span class="delete fa fa-remove" onclick="deleteMember(@member.Id)"></span>
+                <span class="edit fa fa-pencil">
                 </span>
             </li>
         }
 
 
     </ul>
-    <input type="text" id="nameField" title="e.g.Radu" />
-    <button id="createButton" disabled="disabled" title="Create">Create</button>
-    <button id="clearButton" title="Clear">Clear</button>
+    <input type="text" id="nameField" title="e.g.Andrei" />
+    <button class="btn btn-primary" id="createButton" disabled="disabled" title="Create">Create</button>
+    <button class="btn btn-secondary" id="clearButton" title="Clear">Clear</button>
 </div>
 

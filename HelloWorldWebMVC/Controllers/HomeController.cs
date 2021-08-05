@@ -22,20 +22,26 @@ namespace HelloWorldWebMVC.Controllers
         public HomeController(ILogger<HomeController> logger, ITeamService teamService)
         {
             this.logger = logger;
-            this.teamService = teamService;
-            
+            this.teamService = teamService;  
         }
 
         [HttpGet]
         public int GetCount()
         {
-            return teamService.GetTeamInfo().TeamMembers.Count;
+            return this.teamService.GetTeamInfo().TeamMembers.Count;
         }
 
         [HttpPost]
-        public void AddTeamMember(string name)
+        public int AddTeamMember(string name)
         {
-            this.teamService.AddTeamMember(name);
+            return this.teamService.AddTeamMember(name);
+            
+        }
+
+        [HttpDelete]
+        public void DeleteTeamMember(int index)
+        {
+            this.teamService.DeleteTeamMember(index);
         }
 
         public IActionResult Index()
