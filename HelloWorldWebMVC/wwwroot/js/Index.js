@@ -1,5 +1,9 @@
 ﻿$(document).ready(function () {
     // see https://api.jquery.com/click/
+    $("#clearButton").click(function () {
+        $("#nameField").val("")
+    });
+
     $("#createButton").click(function () {
         var newcomerName = $("#nameField").val();
 
