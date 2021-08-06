@@ -47,7 +47,15 @@ $(document).ready(function () {
 
     });
 
-    
+    $("#team-list").on("click", ".edit", function () {
+        var targetMemberTag = $(this).closest('li');
+        var id = targetMemberTag.attr('data-member-id');
+        var currentName = targetMemberTag.find(".memberName").text();
+        $('#editTeamMember').attr("data-member-id", id);
+        $('#memberName').val(currentName);
+        $('#editTeamMember').modal('show');
+
+    })
     
 });
 
