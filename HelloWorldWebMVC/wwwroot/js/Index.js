@@ -28,7 +28,7 @@ $(document).ready(function () {
             data: { "name": newcomerName },
             success: function (result) {
                 var ind = result;
-                var newName = targetMemberTag.find(".memberName").text();
+                
                 //console.log(result);
                 $("#team-list").append(
                     `<li class="member">
@@ -49,8 +49,10 @@ $(document).ready(function () {
     });
 
     $("#editTeamMember").on("click", "#submit", function () {
-        var id = 4;
-        var newName = "newww";
+        //var id = 4;
+        //var newName = "newww";
+        var id = $("#editTeamMember").attr('data-member-id');
+        var newName = $("#memberName").val();
         console.log('submit changes to server');
         $.ajax({
         url: "/Home/EditTeamMember",
@@ -61,6 +63,7 @@ $(document).ready(function () {
         },
         success: function (result) {
             console.log(`edit: ${id}`);
+            location.reload();
         }
     })
     })
