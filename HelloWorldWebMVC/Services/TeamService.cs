@@ -17,11 +17,11 @@ namespace HelloWorldWeb.Services
                 Name = "~Team 1~",
                 TeamMembers = new List<TeamMember>(),
             };
-            this.teamInfo.TeamMembers.Add(new TeamMember("Sorina"));
-            this.teamInfo.TeamMembers.Add(new TeamMember("Ema"));
-            this.teamInfo.TeamMembers.Add(new TeamMember("Patrick"));
-            this.teamInfo.TeamMembers.Add(new TeamMember("Tudor"));
-            this.teamInfo.TeamMembers.Add(new TeamMember("Radu"));
+            this.AddTeamMember("Sorina");
+            this.AddTeamMember("Ema");
+            this.AddTeamMember("Patrick");
+            this.AddTeamMember("Tudor");
+            this.AddTeamMember("Radu");
         }
 
         public TeamInfo GetTeamInfo()
@@ -31,15 +31,16 @@ namespace HelloWorldWeb.Services
 
         public TeamMember GetTeamMemberById(int id)
         {
-            //foreach (TeamMember member in this.teamInfo.TeamMembers)
-            //{
+            // foreach (TeamMember member in this.teamInfo.TeamMembers)
+            // {
             //    if (member.Id == id)
             //    {
             //        return member;
             //    }
 
-            //}
-            //return null;
+            // }
+
+            // return null;
             Console.WriteLine(id);
             return this.teamInfo.TeamMembers.Find(x => x.Id == id);
         }
@@ -53,9 +54,7 @@ namespace HelloWorldWeb.Services
 
         public void DeleteTeamMember(int index)
         {
-           
             this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(index));
         }
-
     }
 }
