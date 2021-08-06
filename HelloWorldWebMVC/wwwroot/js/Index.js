@@ -34,7 +34,7 @@ $(document).ready(function () {
                     `<li class="member">
                         <span class="name">${newcomerName}</span>
                         <span class="delete fa fa-remove" onClick="deleteMember(${ind})"></span>
-                        <span class="edit fa fa-pencil" onClick="editMember(${ind},${newName}) ></span >
+                        <span class="edit fa fa-pencil"  ></span >
                     </li>`
                 );
                 $("#nameField").val("");
@@ -48,6 +48,28 @@ $(document).ready(function () {
 
     });
 
+    $("#editTeamMember").on("click", "#submit", function () {
+        var id = 4;
+        var newName = "newww";
+        console.log('submit changes to server');
+        $.ajax({
+        url: "/Home/EditTeamMember",
+        method: "POST",
+        data: {
+            "id": id,
+            "name": newName
+        },
+        success: function (result) {
+            console.log(`edit: ${id}`);
+        }
+    })
+    })
+
+    $("#editTeamMember").on("click", "#cancel", function () {
+        console.log('cancel changes');
+    })
+
+
     $("#team-list").on("click", ".edit", function () {
         var targetMemberTag = $(this).closest('li');
         var id = targetMemberTag.attr('data-member-id');
@@ -60,33 +82,33 @@ $(document).ready(function () {
     
 });
 
-function deleteMember(index) {
+function deleteMember(id) {
 
     $.ajax({
         url: "/Home/DeleteTeamMember",
         method: "DELETE",
         data: {
-            "index": index
+            "id": id
         },
         success: function (result) {
-             console.log("deleete:"+ index);
+             console.log("deleete:"+ id);
             location.reload();
         }
     })
 };
 
-function editMember(index, newName) {
+//function editMember(index, newName) {
 
-    $.ajax({
-        url: "/Home/EditTeamMember",
-        method: "PUT",
-        data: {
-            "index": index,
-            "name": newName
-        },
-        success: function (result) {
-            console.log("edit:" + index);
-            location.reload();
-        }
-    })
-};
+//    $.ajax({
+//        url: "/Home/EditTeamMember",
+//        method: "PUT",
+//        data: {
+//            "index": index,
+//            "name": newName
+//        },
+//        success: function (result) {
+//            console.log("edit:" + index);
+//            location.reload();
+//        }
+//    })
+//};

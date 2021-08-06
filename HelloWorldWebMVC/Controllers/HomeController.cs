@@ -37,15 +37,15 @@ namespace HelloWorldWebMVC.Controllers
         }
 
         [HttpDelete]
-        public void DeleteTeamMember(int index)
+        public void DeleteTeamMember(int id)
         {
-            this.teamService.DeleteTeamMember(index);
+            this.teamService.DeleteTeamMember(id);
         }
 
         [HttpPut]
-        public void EditTeamMember(int index, string name)
+        public void EditTeamMember(int id, string name)
         {
-            this.teamService.EditTeamMember(index, name);
+            this.teamService.EditTeamMember(id, name);
         }
 
         public IActionResult Index()
