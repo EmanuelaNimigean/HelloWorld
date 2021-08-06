@@ -42,6 +42,12 @@ namespace HelloWorldWebMVC.Controllers
             this.teamService.DeleteTeamMember(index);
         }
 
+        [HttpPut]
+        public void EditTeamMember(int index, string name)
+        {
+            this.teamService.EditTeamMember(index, name);
+        }
+
         public IActionResult Index()
         {
             return this.View(this.teamService.GetTeamInfo());

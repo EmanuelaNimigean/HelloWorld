@@ -52,9 +52,14 @@ namespace HelloWorldWeb.Services
             return member.Id;
         }
 
-        public void DeleteTeamMember(int index)
+        public void DeleteTeamMember(int id)
         {
-            this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(index));
+            this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(id));
+        }
+
+        public void EditTeamMember(int id, string name)
+        {
+            this.GetTeamMemberById(id).Name = name;
         }
     }
 }

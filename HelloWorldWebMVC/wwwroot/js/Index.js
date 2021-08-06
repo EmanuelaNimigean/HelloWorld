@@ -28,12 +28,13 @@ $(document).ready(function () {
             data: { "name": newcomerName },
             success: function (result) {
                 var ind = result;
+                var newName = targetMemberTag.find(".memberName").text();
                 //console.log(result);
                 $("#team-list").append(
                     `<li class="member">
                         <span class="name">${newcomerName}</span>
                         <span class="delete fa fa-remove" onClick="deleteMember(${ind})"></span>
-                        <span class="edit fa fa-pencil"></span>
+                        <span class="edit fa fa-pencil" onClick="editMember(${ind},${newName}) ></span >
                     </li>`
                 );
                 $("#nameField").val("");
@@ -69,6 +70,22 @@ function deleteMember(index) {
         },
         success: function (result) {
              console.log("deleete:"+ index);
+            location.reload();
+        }
+    })
+};
+
+function editMember(index, newName) {
+
+    $.ajax({
+        url: "/Home/EditTeamMember",
+        method: "PUT",
+        data: {
+            "index": index,
+            "name": newName
+        },
+        success: function (result) {
+            console.log("edit:" + index);
             location.reload();
         }
     })
