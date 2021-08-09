@@ -56,7 +56,7 @@ $(document).ready(function () {
         console.log('submit changes to server');
         $.ajax({
         url: "/Home/EditTeamMember",
-        method: "POST",
+        method: "PUT",
         data: {
             "id": id,
             "name": newName
@@ -100,18 +100,3 @@ function deleteMember(id) {
     })
 };
 
-//function editMember(index, newName) {
-
-//    $.ajax({
-//        url: "/Home/EditTeamMember",
-//        method: "PUT",
-//        data: {
-//            "index": index,
-//            "name": newName
-//        },
-//        success: function (result) {
-//            console.log("edit:" + index);
-//            location.reload();
-//        }
-//    })
-//};

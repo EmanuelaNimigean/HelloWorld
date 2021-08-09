@@ -42,7 +42,7 @@ namespace HelloWorldWebMVC.Controllers
             this.teamService.DeleteTeamMember(id);
         }
 
-        [HttpPost]
+        [HttpPut]
         public void EditTeamMember(int id, string name)
         {
             this.teamService.EditTeamMember(id, name);
