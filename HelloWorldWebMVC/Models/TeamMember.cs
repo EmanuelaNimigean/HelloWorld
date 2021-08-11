@@ -1,13 +1,16 @@
-﻿using System;
+﻿using HelloWorldWebMVC.Services;
+using System;
 
 namespace HelloWorldWebMVC.Models
 {
     public class TeamMember
     {
         private static int idCount = 0;
+        private readonly ITimeService timeService;
 
-        public TeamMember(string name)
+        public TeamMember(string name, ITimeService timeService)
         {
+            this.timeService = timeService;
             this.Id = idCount;
             this.Name = name;
             idCount++;
@@ -21,7 +24,7 @@ namespace HelloWorldWebMVC.Models
 
         public int GetAge()
         {
-            var age = DateTime.Now.Subtract(Birthdate).Days;
+            var age = this.timeService.GetNow().Subtract(Birthdate).Days;
             age = age / 365;
             return age;
         }

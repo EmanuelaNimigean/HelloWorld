@@ -1,4 +1,5 @@
 using HelloWorldWeb.Services;
+using HelloWorldWebMVC.Services;
 using System;
 using Xunit;
 
@@ -11,8 +12,9 @@ namespace HelloWorldWeb.Test
         {
             //Assume
             ITeamService teamService = new TeamService();
+            ITimeService timeService = new TimeService();
             //Act
-            teamService.AddTeamMember("George");
+            teamService.AddTeamMember("George", timeService);
             //Assert
             Assert.Equal(6, teamService.GetTeamInfo().TeamMembers.Count);
            

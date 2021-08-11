@@ -1,4 +1,4 @@
-﻿using HelloWorldWeb.Services;
+﻿using HelloWorldWebMVC.Services;
 using HelloWorldWebMVC.Models;
 using System;
 using System.Collections.Generic;
@@ -11,12 +11,19 @@ namespace HelloWorldWeb.Test
 {
     public class TeamMemberTests
     {
+        private ITimeService timeService;
+
+        public TeamMemberTests()
+        {
+            timeService = new FakeTimeService();
+        }
+
         [Fact]
         public void GettingAge()
         {
             //Assume
-            ITeamService teamService = new TeamService();
-            var newTeamMember = new TeamMember("Emma");
+           
+            var newTeamMember = new TeamMember("Emma", timeService);
             newTeamMember.Birthdate = new DateTime(1998, 4, 22);
 
             //Act
@@ -27,5 +34,13 @@ namespace HelloWorldWeb.Test
 
         }
 
+    }
+
+    internal class FakeTimeService : ITimeService
+    {
+        public DateTime GetNow()
+        {
+            return new DateTime(2021, 08, 11);
+        }
     }
 }
