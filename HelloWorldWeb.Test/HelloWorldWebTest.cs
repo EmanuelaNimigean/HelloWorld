@@ -23,10 +23,12 @@ namespace HelloWorldWeb.Test
         {
             //Assume
             ITeamService teamService = new TeamService();
+            var targetTeamMember = teamService.GetTeamInfo().TeamMembers[1];
+            int targetId = targetTeamMember.Id;
             //Act
-            teamService.DeleteTeamMember(3);
+            teamService.DeleteTeamMember(targetId);
             //Assert
-            Assert.Equal(5, teamService.GetTeamInfo().TeamMembers.Count);
+            Assert.Equal(4, teamService.GetTeamInfo().TeamMembers.Count);
 
         }
 
