@@ -59,6 +59,7 @@
         console.log('submit changes to server');
 
         $.ajax({
+
             url: "/Home/EditTeamMember",
             method: "PUT",
             data: {
@@ -70,6 +71,19 @@
                 location.reload();
             }
         })
+
+        url: "/Home/EditTeamMember",
+        method: "PUT",
+        data: {
+            "id": id,
+            "name": newName
+        },
+        success: function (result) {
+            console.log(`edit: ${id}`);
+            location.reload();
+        }
+    })
+
     })
 
     //cancel the edit member
@@ -112,4 +126,25 @@ function editMember() {
         $('#editTeamMember').modal('show');
 
     })
+
 }
+=======
+    
+});
+
+function deleteMember(id) {
+
+    $.ajax({
+        url: "/Home/DeleteTeamMember",
+        method: "DELETE",
+        data: {
+            "id": id
+        },
+        success: function (result) {
+             console.log("deleete:"+ id);
+            location.reload();
+        }
+    })
+};
+
+
