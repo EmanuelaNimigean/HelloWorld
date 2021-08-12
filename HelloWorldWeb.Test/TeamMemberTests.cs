@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Moq;
 
 namespace HelloWorldWeb.Test
 {
@@ -15,7 +16,10 @@ namespace HelloWorldWeb.Test
 
         public TeamMemberTests()
         {
-            timeService = new FakeTimeService();
+            var mock = new Mock<ITimeService>();
+            mock.Setup(_=>_.GetNow())
+     .Returns(new DateTime(2021,8,11));
+            timeService = mock.Object;
         }
 
         [Fact]
@@ -36,11 +40,11 @@ namespace HelloWorldWeb.Test
 
     }
 
-    internal class FakeTimeService : ITimeService
+    /*internal class FakeTimeService : ITimeService
     {
         public DateTime GetNow()
         {
             return new DateTime(2021, 08, 11);
         }
-    }
+    }*/
 }
