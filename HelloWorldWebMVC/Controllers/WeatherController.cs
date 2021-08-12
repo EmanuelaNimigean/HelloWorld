@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HelloWorldWebMVC.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,11 @@ namespace HelloWorldWebMVC.Controllers
     {
         // GET: api/<WeatherController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<DailyWeatherRecord> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new DailyWeatherRecord[] {
+                new DailyWeatherRecord(new DateTime(2021,8,12),22,WeatherType.Mild)
+            };
         }
 
         // GET api/<WeatherController>/5
