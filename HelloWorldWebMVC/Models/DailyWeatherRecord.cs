@@ -21,6 +21,15 @@ namespace HelloWorldWebMVC.Models
             this.Temperature = temperature;
             this.Type = type;
         }
+
+        public DailyWeatherRecord()
+        {
+        }
+
+        public static float kelvinToCelsius(float temp)
+        {
+            return (float)(temp - 273.15);
+        }
     }
 
 }

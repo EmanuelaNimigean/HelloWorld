@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,14 +33,42 @@ namespace HelloWorldWebMVC.Controllers
         {
             var json = JObject.Parse(content);
             List<DailyWeatherRecord> result = new List<DailyWeatherRecord>();
-            var jsonArray = json["daily"];
+            var jsonArray = json["daily"].Take(7);
             foreach (var item in jsonArray)
             {
-                DailyWeatherRecord dailyWeatherRecord = null;
                 //TODO: Convert item to DailyWeatherRecord
+                DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(new DateTime(2021, 8, 12), 22.0f, WeatherType.Mild);
+
+                long unixDateTime = item.Value<long>("dt");
+                var temperature = item.SelectToken("temp");
+                string weather = item.SelectToken("weather")[0].Value<string>("description");
+
+                dailyWeatherRecord.Day = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date;
+                dailyWeatherRecord.Temperature = DailyWeatherRecord.kelvinToCelsius(temperature.Value<float>("day"));
+                dailyWeatherRecord.Type = Convert(weather);
+
                 result.Add(dailyWeatherRecord);
             }
             return result;
+        }
+
+        private WeatherType Convert(string weather)
+        {
+            switch (weather)
+            {
+                case "few clouds":
+                    return WeatherType.FewClouds;
+                case "light rain":
+                    return WeatherType.LightRain;
+                case "broken clouds":
+                    return WeatherType.BrokenClouds;
+                case "scattered clouds":
+                    return WeatherType.ScatteredClouds;
+                case "clear sky":
+                    return WeatherType.ClearSky;
+                default:
+                    throw new Exception($"Unknown weather type {weather}!");
+            }
         }
 
         // GET api/<WeatherController>/5
