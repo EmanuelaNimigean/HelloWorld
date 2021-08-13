@@ -18,6 +18,7 @@ namespace HelloWorldWebMVC.Controllers
         private readonly string longitude= "23.5800";
         private readonly string apiKey= "cc9172eeab7743b7d5cbc7d65ac03925";
 
+
         // GET: api/<WeatherController>
         [HttpGet]
         public IEnumerable<DailyWeatherRecord> Get()
@@ -32,10 +33,8 @@ namespace HelloWorldWebMVC.Controllers
         public IEnumerable<DailyWeatherRecord> ConvertResponseToWeatherRecordList(string content)
         {
             var json = JObject.Parse(content);
-            List<DailyWeatherRecord> result = new List<DailyWeatherRecord>();
             var jsonArray = json["daily"].Take(7);
-            result.AddRange(jsonArray.Select(ConvertDailyWeatherFromJToken));
-            return result;
+            return jsonArray.Select(this.ConvertDailyWeatherFromJToken);
         }
 
         private DailyWeatherRecord ConvertDailyWeatherFromJToken(JToken item)
