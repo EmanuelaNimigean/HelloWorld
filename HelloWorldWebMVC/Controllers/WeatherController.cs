@@ -34,22 +34,22 @@ namespace HelloWorldWebMVC.Controllers
             var json = JObject.Parse(content);
             List<DailyWeatherRecord> result = new List<DailyWeatherRecord>();
             var jsonArray = json["daily"].Take(7);
-            foreach (var item in jsonArray)
-            {
-                long unixDateTime = item.Value<long>("dt");
-                var temperature = item.SelectToken("temp");
-                string weather = item.SelectToken("weather")[0].Value<string>("description");
-
-                DateTime formatDateTime = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date;
-                float formatTemperature = DailyWeatherRecord.KelvinToCelsius(temperature.Value<float>("day"));
-                WeatherType formatType = this.Convert(weather);
-
-                DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(formatDateTime, formatTemperature, formatType);
-
-                result.Add(dailyWeatherRecord);
-            }
-
+            result.AddRange(jsonArray.Select(ConvertDailyWeatherFromJToken));
             return result;
+        }
+
+        private DailyWeatherRecord ConvertDailyWeatherFromJToken(JToken item)
+        {
+            long unixDateTime = item.Value<long>("dt");
+            var temperature = item.SelectToken("temp");
+            string weather = item.SelectToken("weather")[0].Value<string>("description");
+
+            DateTime formatDateTime = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date;
+            float formatTemperature = DailyWeatherRecord.KelvinToCelsius(temperature.Value<float>("day"));
+            WeatherType formatType = this.Convert(weather);
+
+            DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(formatDateTime, formatTemperature, formatType);
+            return dailyWeatherRecord;
         }
 
         private WeatherType Convert(string weather)
