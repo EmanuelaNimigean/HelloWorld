@@ -36,19 +36,19 @@ namespace HelloWorldWebMVC.Controllers
             var jsonArray = json["daily"].Take(7);
             foreach (var item in jsonArray)
             {
-                //TODO: Convert item to DailyWeatherRecord
-                DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(new DateTime(2021, 8, 12), 22.0f, WeatherType.Mild);
-
                 long unixDateTime = item.Value<long>("dt");
                 var temperature = item.SelectToken("temp");
                 string weather = item.SelectToken("weather")[0].Value<string>("description");
 
-                dailyWeatherRecord.Day = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date;
-                dailyWeatherRecord.Temperature = DailyWeatherRecord.kelvinToCelsius(temperature.Value<float>("day"));
-                dailyWeatherRecord.Type = Convert(weather);
+                DateTime formatDateTime = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date;
+                float formatTemperature = DailyWeatherRecord.KelvinToCelsius(temperature.Value<float>("day"));
+                WeatherType formatType = this.Convert(weather);
+
+                DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(formatDateTime, formatTemperature, formatType);
 
                 result.Add(dailyWeatherRecord);
             }
+
             return result;
         }
 

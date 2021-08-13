@@ -26,7 +26,7 @@ namespace HelloWorldWebMVC.Models
         {
         }
 
-        public static float kelvinToCelsius(float temp)
+        public static float KelvinToCelsius(float temp)
         {
             return (float)(temp - 273.15);
         }
