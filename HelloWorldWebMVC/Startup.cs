@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using HelloWorldWebMVC.Data;
 using HelloWorldWebMVC.Services;
+using HelloWorldWebMVC.Controllers;
 
 namespace HelloWorldWebMVC
 {
@@ -42,6 +43,7 @@ namespace HelloWorldWebMVC
             services.AddControllersWithViews();
             services.AddSingleton<ITeamService>(new TeamService());
             services.AddSingleton<ITimeService>(new TimeService());
+            services.AddSingleton<IWeatherControllerSettings, WeatherControllerSettings>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
