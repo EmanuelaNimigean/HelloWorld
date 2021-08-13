@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using HelloWorldWebMVC.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelloWorldWebMVC.Data
 {
@@ -13,6 +13,7 @@ namespace HelloWorldWebMVC.Data
             : base(options)
         {
         }
+
         public DbSet<HelloWorldWebMVC.Models.Skill> Skill { get; set; }
     }
 }

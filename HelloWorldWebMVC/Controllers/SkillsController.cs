@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HelloWorldWebMVC.Data;
+using HelloWorldWebMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using HelloWorldWebMVC.Data;
-using HelloWorldWebMVC.Models;
 
 namespace HelloWorldWebMVC.Controllers
 {
@@ -16,13 +16,13 @@ namespace HelloWorldWebMVC.Controllers
 
         public SkillsController(ApplicationDbContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         // GET: Skills
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Skill.ToListAsync());
+            return this.View(await this._context.Skill.ToListAsync());
         }
 
         // GET: Skills/Details/5
@@ -30,23 +30,23 @@ namespace HelloWorldWebMVC.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
-            var skill = await _context.Skill
+            var skill = await this._context.Skill
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (skill == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
-            return View(skill);
+            return this.View(skill);
         }
 
         // GET: Skills/Create
         public IActionResult Create()
         {
-            return View();
+            return this.View();
         }
 
         // POST: Skills/Create
@@ -56,13 +56,14 @@ namespace HelloWorldWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,SkillUrl")] Skill skill)
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                _context.Add(skill);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                this._context.Add(skill);
+                await this._context.SaveChangesAsync();
+                return this.RedirectToAction(nameof(this.Index));
             }
-            return View(skill);
+
+            return this.View(skill);
         }
 
         // GET: Skills/Edit/5
@@ -70,15 +71,16 @@ namespace HelloWorldWebMVC.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
-            var skill = await _context.Skill.FindAsync(id);
+            var skill = await this._context.Skill.FindAsync(id);
             if (skill == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
-            return View(skill);
+
+            return this.View(skill);
         }
 
         // POST: Skills/Edit/5
@@ -90,30 +92,32 @@ namespace HelloWorldWebMVC.Controllers
         {
             if (id != skill.Id)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(skill);
-                    await _context.SaveChangesAsync();
+                    this._context.Update(skill);
+                    await this._context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SkillExists(skill.Id))
+                    if (!this.SkillExists(skill.Id))
                     {
-                        return NotFound();
+                        return this.NotFound();
                     }
                     else
                     {
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+                return this.RedirectToAction(nameof(this.Index));
             }
-            return View(skill);
+
+            return this.View(skill);
         }
 
         // GET: Skills/Delete/5
@@ -121,33 +125,34 @@ namespace HelloWorldWebMVC.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
-            var skill = await _context.Skill
+            var skill = await this._context.Skill
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (skill == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
-            return View(skill);
+            return this.View(skill);
         }
 
         // POST: Skills/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var skill = await _context.Skill.FindAsync(id);
-            _context.Skill.Remove(skill);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var skill = await this._context.Skill.FindAsync(id);
+            this._context.Skill.Remove(skill);
+            await this._context.SaveChangesAsync();
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         private bool SkillExists(int id)
         {
-            return _context.Skill.Any(e => e.Id == id);
+            return this._context.Skill.Any(e => e.Id == id);
         }
     }
 }

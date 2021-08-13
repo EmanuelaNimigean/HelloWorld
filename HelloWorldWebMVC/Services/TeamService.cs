@@ -11,6 +11,7 @@ namespace HelloWorldWeb.Services
     {
         private readonly TeamInfo teamInfo;
         private ITimeService timeService;
+
         public TeamService()
         {
             this.teamInfo = new TeamInfo
@@ -18,11 +19,11 @@ namespace HelloWorldWeb.Services
                 Name = "~Team 1~",
                 TeamMembers = new List<TeamMember>(),
             };
-            this.AddTeamMember("Sorina", (TimeService)timeService);
-            this.AddTeamMember("Ema", (TimeService)timeService);
-            this.AddTeamMember("Patrick", (TimeService)timeService);
-            this.AddTeamMember("Tudor", (TimeService)timeService);
-            this.AddTeamMember("Radu", (TimeService)timeService);
+            this.AddTeamMember("Sorina", (TimeService)this.timeService);
+            this.AddTeamMember("Ema", (TimeService)this.timeService);
+            this.AddTeamMember("Patrick", (TimeService)this.timeService);
+            this.AddTeamMember("Tudor", (TimeService)this.timeService);
+            this.AddTeamMember("Radu", (TimeService)this.timeService);
         }
 
         public TeamInfo GetTeamInfo()
@@ -62,6 +63,5 @@ namespace HelloWorldWeb.Services
         {
             this.GetTeamMemberById(id).Name = name;
         }
-
     }
 }

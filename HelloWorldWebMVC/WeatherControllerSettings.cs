@@ -11,9 +11,9 @@ namespace HelloWorldWebMVC
     {
         public WeatherControllerSettings(IConfiguration configuration)
         {
-            ApiKey = configuration["WeatherForecast:ApiKey"];
-            Longitude= configuration["WeatherForecast:Longitude"];
-            Latitude= configuration["WeatherForecast:Latitude"];
+            this.ApiKey = configuration["WeatherForecast:ApiKey"];
+            this.Longitude = configuration["WeatherForecast:Longitude"];
+            this.Latitude = configuration["WeatherForecast:Latitude"];
         }
 
         public WeatherControllerSettings()

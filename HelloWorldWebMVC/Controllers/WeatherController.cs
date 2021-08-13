@@ -7,9 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace HelloWorldWebMVC.Controllers
 {
+    /// <summary>
+    /// fetch data from weather API
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class WeatherController : ControllerBase
@@ -29,11 +31,11 @@ namespace HelloWorldWebMVC.Controllers
         [HttpGet]
         public IEnumerable<DailyWeatherRecord> Get()
         {
-            var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat={latitude}&lon={longitude}&exclude=hourly,minutely&appid={apiKey}");
+            var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat={this.latitude}&lon={this.longitude}&exclude=hourly,minutely&appid={this.apiKey}");
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
-            return ConvertResponseToWeatherRecordList(response.Content);
+            return this.ConvertResponseToWeatherRecordList(response.Content);
         }
 
         public IEnumerable<DailyWeatherRecord> ConvertResponseToWeatherRecordList(string content)
@@ -76,13 +78,6 @@ namespace HelloWorldWebMVC.Controllers
                 default:
                     throw new Exception($"Unknown weather type {weather}!");
             }
-        }
-
-        // GET api/<WeatherController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
         }
      }
 }

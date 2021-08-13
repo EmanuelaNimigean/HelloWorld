@@ -24,7 +24,7 @@ namespace HelloWorldWebMVC.Models
 
         public int GetAge()
         {
-            var age = this.timeService.GetNow().Subtract(Birthdate).Days;
+            var age = this.timeService.GetNow().Subtract(this.Birthdate).Days;
             age = age / 365;
             return age;
         }
