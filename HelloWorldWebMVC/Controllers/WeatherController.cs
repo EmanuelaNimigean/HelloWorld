@@ -46,6 +46,17 @@ namespace HelloWorldWebMVC.Controllers
             return jsonArray.Select(this.ConvertDailyWeatherFromJToken);
         }
 
+        /// <summary>
+        /// GET method used to retrieve weather informations for a specific day using an index received as input which specifies the amount of days from now.
+        /// </summary>
+        /// <param name="index">Amount of days from now(from 0 to 7).</param>
+        /// <returns>The weather forecast.</returns>
+        [HttpGet("{index}")]
+        public string Get(int index)
+        {
+            return "value";
+        }
+
         private DailyWeatherRecord ConvertDailyWeatherFromJToken(JToken item)
         {
             long unixDateTime = item.Value<long>("dt");
