@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
 
 // using System;
 // using System.Collections.Generic;
@@ -24,7 +25,9 @@ namespace HelloWorldWebMVC
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    var port = Environment.GetEnvironmentVariable("PORT");
+                    webBuilder.UseStartup<Startup>()
+                    .UseUrls("http://*:" + port);
                 });
     }
 }
