@@ -18,5 +18,6 @@
         ScatteredClouds,
         ClearSky,
         ModerateRain,
+        OvercastClouds,
     }
 }

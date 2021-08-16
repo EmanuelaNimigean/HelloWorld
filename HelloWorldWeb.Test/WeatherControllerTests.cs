@@ -9,6 +9,7 @@ using HelloWorldWebMVC.Controllers;
 using HelloWorldWebMVC.Models;
 using HelloWorldWebMVC;
 using System.IO;
+using System.Reflection;
 
 namespace HelloWorldWeb.Test
 {
@@ -37,8 +38,10 @@ namespace HelloWorldWeb.Test
 
         private string LoadJsonFromResource()
         {
-           var resourceName = "HelloWorldWeb.Test.TestData.ContentWeatherAPI.json";
             var assembly = this.GetType().Assembly;
+            var assemblyName = assembly.GetName().Name; 
+            var resourceName = $"{assemblyName}.TestData.ContentWeatherAPI.json";
+            
             var resourceStream = assembly.GetManifestResourceStream(resourceName);
             using (var tr = new StreamReader(resourceStream))
             {
