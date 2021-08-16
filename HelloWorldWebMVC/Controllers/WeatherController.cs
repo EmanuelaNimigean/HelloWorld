@@ -10,7 +10,8 @@ using System.Linq;
 namespace HelloWorldWebMVC.Controllers
 {
     /// <summary>
-    /// fetch data from weather API
+    /// fetch data from weather API:
+    /// <see href="https://api.openweathermap.org/api"/>
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
