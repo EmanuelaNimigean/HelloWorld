@@ -52,7 +52,7 @@ namespace HelloWorldWebMVC
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
-            services.AddSingleton<ITeamService,TeamService>();
+            services.AddScoped<ITeamService, DbTeamService>();
             services.AddSingleton<ITimeService>(new TimeService());
             services.AddSingleton<IWeatherControllerSettings, WeatherControllerSettings>();
         }

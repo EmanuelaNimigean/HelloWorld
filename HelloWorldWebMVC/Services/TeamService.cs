@@ -63,5 +63,10 @@ namespace HelloWorldWeb.Services
         {
             this.GetTeamMemberById(id).Name = name;
         }
+
+        public int AddTeamMember(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

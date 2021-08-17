@@ -12,6 +12,13 @@ namespace HelloWorldWebMVC.Models
         {
         }
 
+        public TeamMember(string name)
+        {
+            this.Name = name;
+            this.Id = idCount;
+            idCount++;
+        }
+
         public TeamMember(string name, ITimeService timeService)
         {
             this.timeService = timeService;
