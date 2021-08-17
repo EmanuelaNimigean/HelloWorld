@@ -37,7 +37,7 @@ namespace HelloWorldWebMVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseNpgsql(
                     this.Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddSwaggerGen(c =>
@@ -52,7 +52,7 @@ namespace HelloWorldWebMVC
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
-            services.AddSingleton<ITeamService>(new TeamService());
+            services.AddSingleton<ITeamService,TeamService>();
             services.AddSingleton<ITimeService>(new TimeService());
             services.AddSingleton<IWeatherControllerSettings, WeatherControllerSettings>();
         }
