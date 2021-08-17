@@ -8,45 +8,45 @@ using System.Threading.Tasks;
 
 namespace HelloWorldWebMVC.Services
 {
-    public class DbTeamService:ITeamService
+    public class DbTeamService : ITeamService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext context;
 
         public DbTeamService(ApplicationDbContext context)
         {
-            this._context = context;
+            this.context = context;
         }
 
         public int AddTeamMember(string name)
         {
             TeamMember teamMember = new TeamMember(name);
-            this._context.Add(teamMember);
-            this._context.SaveChanges();
+            this.context.Add(teamMember);
+            this.context.SaveChangesAsync();
             return teamMember.Id;
-        }
-
-        public TeamInfo GetTeamInfo()
-        {
-            var teamMembersList = this._context.TeamMembers.ToList();
-            TeamInfo teamInfo = new TeamInfo();
-            teamInfo.Name = "Ema";
-            teamInfo.TeamMembers = teamMembersList;
-            return teamInfo;
-        }
-
-        public TeamMember GetTeamMemberById()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteTeamMember(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public void EditTeamMember(int id, string name)
         {
-            throw new NotImplementedException();
+            var teamMember = this.context.TeamMembers.Find(id);
+            teamMember.Name = name;
+            this.context.Update(teamMember);
+            this.context.SaveChanges();
+        }
+
+        public void DeleteTeamMember(int id)
+        {
+            var teamMember = this.context.TeamMembers.Find(id);
+            this.context.TeamMembers.Remove(teamMember);
+            this.context.SaveChanges();
+        }
+
+        public TeamInfo GetTeamInfo()
+        {
+            var teamMembersList = this.context.TeamMembers.ToList();
+            TeamInfo teamInfo = new TeamInfo();
+            teamInfo.Name = "Team example";
+            teamInfo.TeamMembers = teamMembersList;
+            return teamInfo;
         }
 
         public TeamMember GetTeamMemberById(int id)

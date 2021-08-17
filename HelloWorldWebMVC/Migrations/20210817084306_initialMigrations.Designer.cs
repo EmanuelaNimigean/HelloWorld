@@ -11,7 +11,7 @@ namespace HelloWorldWebMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20210817084306_initialMigrations")]
-    partial class initialMigrations
+    partial class InitialMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

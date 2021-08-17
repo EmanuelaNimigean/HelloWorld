@@ -31,6 +31,13 @@ namespace HelloWorldWeb.Services
             return this.teamInfo;
         }
 
+        public int AddTeamMember(string name)
+        {
+            int newId = this.teamInfo.TeamMembers.Count + 1;
+            this.teamInfo.TeamMembers.Add(new TeamMember(name));
+            return newId;
+        }
+
         public TeamMember GetTeamMemberById(int id)
         {
             // foreach (TeamMember member in this.teamInfo.TeamMembers)
@@ -62,11 +69,6 @@ namespace HelloWorldWeb.Services
         public void EditTeamMember(int id, string name)
         {
             this.GetTeamMemberById(id).Name = name;
-        }
-
-        public int AddTeamMember(string name)
-        {
-            throw new NotImplementedException();
         }
     }
 }
