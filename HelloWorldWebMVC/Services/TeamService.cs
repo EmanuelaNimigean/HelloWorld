@@ -19,11 +19,11 @@ namespace HelloWorldWeb.Services
                 Name = "~Team 1~",
                 TeamMembers = new List<TeamMember>(),
             };
-            this.AddTeamMember("Sorina", (TimeService)this.timeService);
-            this.AddTeamMember("Ema", (TimeService)this.timeService);
-            this.AddTeamMember("Patrick", (TimeService)this.timeService);
-            this.AddTeamMember("Tudor", (TimeService)this.timeService);
-            this.AddTeamMember("Radu", (TimeService)this.timeService);
+            this.AddTeamMember("Sorina");
+            this.AddTeamMember("Ema");
+            this.AddTeamMember("Patrick");
+            this.AddTeamMember("Tudor");
+            this.AddTeamMember("Radu");
         }
 
         public TeamInfo GetTeamInfo()

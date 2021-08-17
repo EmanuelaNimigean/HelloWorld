@@ -20,8 +20,9 @@ namespace HelloWorldWebMVC.Services
         public int AddTeamMember(string name)
         {
             TeamMember teamMember = new TeamMember(name);
+            teamMember.Birthdate = new DateTime(2000, 12, 12);
             this.context.Add(teamMember);
-            this.context.SaveChangesAsync();
+            this.context.SaveChanges();
             return teamMember.Id;
         }
 
@@ -50,11 +51,6 @@ namespace HelloWorldWebMVC.Services
         }
 
         public TeamMember GetTeamMemberById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int AddTeamMember(string name, ITimeService timeService)
         {
             throw new NotImplementedException();
         }

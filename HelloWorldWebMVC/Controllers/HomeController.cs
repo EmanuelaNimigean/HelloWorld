@@ -36,7 +36,7 @@ namespace HelloWorldWebMVC.Controllers
         [HttpPost]
         public int AddTeamMember(string name)
         {
-            return this.teamService.AddTeamMember(name, this.timeService);
+            return this.teamService.AddTeamMember(name);
         }
 
         [HttpDelete]
