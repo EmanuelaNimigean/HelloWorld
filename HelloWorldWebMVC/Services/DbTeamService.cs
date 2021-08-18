@@ -54,5 +54,10 @@ namespace HelloWorldWebMVC.Services
         {
             throw new NotImplementedException();
         }
+
+        public int AddTeamMember(string name, ITimeService timeService)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

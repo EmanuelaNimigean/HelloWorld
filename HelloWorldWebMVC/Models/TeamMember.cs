@@ -10,6 +10,7 @@ namespace HelloWorldWebMVC.Models
 
         public TeamMember()
         {
+            idCount++;
         }
 
         public TeamMember(string name)
