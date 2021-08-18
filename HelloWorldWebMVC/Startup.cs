@@ -91,5 +91,15 @@ namespace HelloWorldWebMVC
                 endpoints.MapRazorPages();
             });
         }
+
+        public static string ConvertHerokuStringToASPNETString(string herokuConnectionString)
+        {
+            var databaseUri = new Uri(herokuConnectionString);
+            var split = databaseUri.UserInfo.Split(':');
+            var username = split[0];
+            var password = split[1];
+            var database = databaseUri.LocalPath.Split('/')[1];
+            return $"Server={databaseUri.Host};Port={databaseUri.Port};Database={database};SslMode=Require;Trust Server Certificate=true;Integrated Security=true;User Id={username};Password={password};";
+        }
     }
 }
