@@ -33,6 +33,16 @@ namespace HelloWorldWebMVC
 
         public IConfiguration Configuration { get; }
 
+        public static string ConvertHerokuStringToASPNETString(string herokuConnectionString)
+        {
+            var databaseUri = new Uri(herokuConnectionString);
+            var split = databaseUri.UserInfo.Split(':');
+            var username = split[0];
+            var password = split[1];
+            var database = databaseUri.LocalPath.Split('/')[1];
+            return $"Server={databaseUri.Host};Port={databaseUri.Port};Database={database};SslMode=Require;Trust Server Certificate=true;Integrated Security=true;User Id={username};Password={password};";
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -90,16 +100,6 @@ namespace HelloWorldWebMVC
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-        }
-
-        public static string ConvertHerokuStringToASPNETString(string herokuConnectionString)
-        {
-            var databaseUri = new Uri(herokuConnectionString);
-            var split = databaseUri.UserInfo.Split(':');
-            var username = split[0];
-            var password = split[1];
-            var database = databaseUri.LocalPath.Split('/')[1];
-            return $"Server={databaseUri.Host};Port={databaseUri.Port};Database={database};SslMode=Require;Trust Server Certificate=true;Integrated Security=true;User Id={username};Password={password};";
         }
     }
 }
