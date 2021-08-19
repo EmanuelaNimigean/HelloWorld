@@ -35,22 +35,26 @@ namespace CSfeatures
 
         static Coffee MakeCoffee(string coffeeGrains,string milk,string water,string sugar,Func<string,string,string,string,Coffee> recipe)
         {
+            Coffee coffee = null;
             try
             {
                 Console.WriteLine("Start preparing coffee.");
-                var coffee = recipe(coffeeGrains, milk, water, sugar);
-                return coffee;
+                coffee = recipe(coffeeGrains, milk, water, sugar);
             }
-            catch
+            catch(RecipeUnavailableException e)
             {
-                Console.WriteLine("Something went wrong.");
-                Console.WriteLine("Sorry, your order cannot be completed.");
-                return null;
+                Console.WriteLine($"Something went wrong: {e.Message}");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Something went wrong, no details.");
             }
             finally
             {
                 Console.WriteLine("Finished.");
             }
+            return coffee;
+
         }
 
         static Coffee Espresso(string coffeeGrains, string milk, string water, string sugar)
