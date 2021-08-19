@@ -12,7 +12,11 @@ namespace CSfeatures
             string jsonString = JsonSerializer.Serialize(teamMember);
             Console.WriteLine(jsonString);
             File.WriteAllText("OutputFile.txt", jsonString);
-            teamMember = JsonSerializer.Deserialize<TeamMember>(jsonString);
+            var readFromFile = File.ReadAllTextAsync("OutputFile.txt");
+            readFromFile.Wait();
+            var awaitOutput = readFromFile.Result;
+            var teamMemberDeserialized = JsonSerializer.Deserialize<TeamMember>(awaitOutput);
+            Console.WriteLine(teamMemberDeserialized);
         }
     }
 }
