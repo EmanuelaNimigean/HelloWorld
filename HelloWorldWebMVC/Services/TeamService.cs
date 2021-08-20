@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HelloWorldWebMVC;
 using HelloWorldWebMVC.Models;
 using HelloWorldWebMVC.Services;
+using Microsoft.AspNetCore.SignalR;
 
 namespace HelloWorldWeb.Services
 {
     public class TeamService : ITeamService
     {
         private readonly TeamInfo teamInfo;
+        private readonly IHubContext<MessageHub> messageHub;
         private ITimeService timeService;
 
-        public TeamService()
+        public TeamService(IHubContext<MessageHub> messageHubContext)
         {
+            this.messageHub = messageHubContext;
+
             this.teamInfo = new TeamInfo
             {
                 Name = "~Team 1~",
@@ -31,13 +36,13 @@ namespace HelloWorldWeb.Services
             return this.teamInfo;
         }
 
-        public int AddTeamMember(string name)
-        {
-            int newId = this.teamInfo.TeamMembers.Count + 1;
-            this.teamInfo.TeamMembers.Add(new TeamMember(name));
-            return newId;
-        }
-
+        // public int AddTeamMember(string name)
+        // {
+        //    int newId = this.teamInfo.TeamMembers.Count + 1;
+        //    this.teamInfo.TeamMembers.Add(new TeamMember(name));
+        //    this.messageHub.Clients.All.SendAsync("NewTeamMemberAdded", name, newId);
+        //    return newId;
+        // }
         public TeamMember GetTeamMemberById(int id)
         {
             // foreach (TeamMember member in this.teamInfo.TeamMembers)
@@ -54,10 +59,11 @@ namespace HelloWorldWeb.Services
             return this.teamInfo.TeamMembers.Find(x => x.Id == id);
         }
 
-        public int AddTeamMember(string name, ITimeService timeService)
+        public int AddTeamMember(string name)
         {
-            TeamMember member = new TeamMember(name, timeService);
+            TeamMember member = new TeamMember(name, this.timeService);
             this.teamInfo.TeamMembers.Add(member);
+            this.messageHub.Clients.All.SendAsync("NewTeamMemberAdded", name, member.Id);
             return member.Id;
         }
 

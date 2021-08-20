@@ -9,6 +9,10 @@ namespace HelloWorldWebMVC
 {
     public class MessageHub : Hub
     {
+        public MessageHub()
+        {
+        }
+
         public async Task SendMessage(string user, string message)
         {
             await this.Clients.All.SendAsync("ReceiveMessage", user, message);

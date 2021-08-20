@@ -11,8 +11,7 @@ namespace HelloWorldWeb.Services
     {
         int AddTeamMember(string name);
 
-        int AddTeamMember(string name, ITimeService timeService);
-
+        // int AddTeamMember(string name, ITimeService timeService);
         TeamInfo GetTeamInfo();
 
         void DeleteTeamMember(int id);

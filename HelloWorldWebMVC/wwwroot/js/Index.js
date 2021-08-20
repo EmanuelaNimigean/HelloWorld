@@ -1,7 +1,20 @@
 ﻿$(document).ready(function () {
     // see https://api.jquery.com/click/
+    var connection = new signalR.HubConnectionBuilder().withUrl("/messagehub").build();
 
     deleteMember(); editMember();
+  
+    connection.on("NewTeamMemberAdded", function (name, memberId) {
+        console.log(`New team member added: ${name}, ${memberId}`)
+        createNewcomer(name, id);
+    });
+
+    connection.start().then(function () {
+        console.log("SignalR started")
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
 
     //disable createButton when the field is empty
     $('#nameField').on('input change', function () {
@@ -113,3 +126,15 @@ function editMember() {
 
     })
 }
+
+function createNewcomer(name, id) {
+    // Remember string interpolation
+    $("#team-list").append(`<li class="member" data-member-id="${id}">
+                        <span class="memberName">${name}</span>
+                        <span class="deleteM fa fa-remove"></span>
+                        <span class="edit fa fa-pencil"></span>
+                             </li>`);
+}
+$("#clear").click(function () {
+    $("#newcomer").val("");
+})
