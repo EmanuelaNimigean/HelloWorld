@@ -17,8 +17,6 @@ namespace HelloWorldWeb.Services
 
         public TeamService(IBroadcastService broadcastService)
         {
-            // this.messageHub = messageHubContext;
-            this.broadcastService = broadcastService;
             this.teamInfo = new TeamInfo
             {
                 Name = "~Team 1~",
@@ -29,6 +27,8 @@ namespace HelloWorldWeb.Services
             this.AddTeamMember("Patrick");
             this.AddTeamMember("Tudor");
             this.AddTeamMember("Radu");
+
+            this.broadcastService = broadcastService;
         }
 
         public TeamInfo GetTeamInfo()
@@ -63,7 +63,11 @@ namespace HelloWorldWeb.Services
         {
             TeamMember member = new TeamMember(name, this.timeService);
             this.teamInfo.TeamMembers.Add(member);
-            this.broadcastService.NewTeamMemberAdded(name, member.Id);
+            if (this.broadcastService != null)
+            {
+                this.broadcastService.NewTeamMemberAdded(name, member.Id);
+            }
+
             return member.Id;
         }
 

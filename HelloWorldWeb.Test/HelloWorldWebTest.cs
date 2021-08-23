@@ -1,5 +1,6 @@
 using HelloWorldWeb.Services;
 using HelloWorldWebMVC.Services;
+using Moq;
 using System;
 using Xunit;
 
@@ -7,18 +8,22 @@ namespace HelloWorldWeb.Test
 {
     public class TeamServiceTest
     {
-        //[Fact]
-        //public void AddTeamMemberToTheTeam()
-        //{
-        //    //Assume
-        //    ITeamService teamService = new TeamService();
-        //    ITimeService timeService = new TimeService();
-        //    //Act
-        //    teamService.AddTeamMember("George");
-        //    //Assert
-        //    Assert.Equal(6, teamService.GetTeamInfo().TeamMembers.Count);
-           
-        //}
+        private IBroadcastService broadcastService;
+        [Fact]
+        public void AddTeamMemberToTheTeam()
+        {
+            //Assume
+            Mock<IBroadcastService> broadcastServiceMock = new Mock<IBroadcastService>();
+            broadcastService = broadcastServiceMock.Object;
+            ITeamService teamService = new TeamService(broadcastService);
+            
+            //Act
+            teamService.AddTeamMember("George");
+
+            //Assert
+            Assert.Equal(6, teamService.GetTeamInfo().TeamMembers.Count);
+            broadcastServiceMock.Verify(_ => _.NewTeamMemberAdded(It.IsAny<string>(), It.IsAny<int>()), Times.Once);
+        }
 
         //[Fact]
         //public void DeleteTeamMemberFromTheTeam()
@@ -44,7 +49,7 @@ namespace HelloWorldWeb.Test
         //    teamService.EditTeamMember(3,"NewName");
         //    //Assert
         //    Assert.Equal("NewName", teamService.GetTeamMemberById(3).Name);
-    
+
 
         //}
 
