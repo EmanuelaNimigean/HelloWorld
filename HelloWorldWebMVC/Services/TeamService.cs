@@ -63,13 +63,22 @@ namespace HelloWorldWeb.Services
         {
             TeamMember member = new TeamMember(name, this.timeService);
             this.teamInfo.TeamMembers.Add(member);
+<<<<<<< Updated upstream
             this.messageHub.Clients.All.SendAsync("NewTeamMemberAdded", name, member.Id);
+=======
+           // if (this.broadcastService != null)
+           // {
+                this.broadcastService.NewTeamMemberAdded(name, member.Id);
+            //}
+
+>>>>>>> Stashed changes
             return member.Id;
         }
 
         public void DeleteTeamMember(int id)
         {
             this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(id));
+            this.broadcastService.TeamMemberDeleted(id);
         }
 
         public void EditTeamMember(int id, string name)
