@@ -4,10 +4,9 @@
 
     deleteMember(); editMember();
   
-    connection.on("NewTeamMemberAdded", function (name, memberId) {
-        console.log(`New team member added: ${name}, ${memberId}`)
-        createNewcomer(name, id);
-    });
+    connection.on("NewTeamMemberAdded", createNewcomer);
+    connection.on("TeamMemberDeleted", deleteMmb);
+    connection.on("TeamMemberEdit", editMmb);
 
     connection.start().then(function () {
         console.log("SignalR started")
@@ -43,13 +42,13 @@
             success: function (result) {
                 var ind = result;
 
-                $("#team-list").append(
-                    `<li class="member" data-member-id="${ind}">
-                        <span class="memberName">${newcomerName}</span>
-                        <span class="deleteM fa fa-remove" ></span></>
-                        <span class="edit fa fa-pencil" onClick="editMember()"></span>
-                    </li>`
-                );
+                //$("#team-list").append(
+                //    `<li class="member" data-member-id="${ind}">
+                //        <span class="memberName">${newcomerName}</span>
+                //        <span class="deleteM fa fa-remove" ></span></>
+                //        <span class="edit fa fa-pencil" onClick="editMember()"></span>
+                //    </li>`
+                //);
 
                 $("#nameField").val("");
                 $('#createButton').prop('disabled', true);
@@ -134,7 +133,17 @@ function createNewcomer(name, id) {
                         <span class="deleteM fa fa-remove"></span>
                         <span class="edit fa fa-pencil"></span>
                              </li>`);
+    deleteMember(); editMember();
 }
+
+var deleteMmb = (id) => {
+    $(`li[data-member-id=${id}]`).remove();
+}
+
+var editMmb = (name, id) => {
+    $(`li[data-member-id=${id}]`).find(".memberName").text(name);
+}
+
 $("#clear").click(function () {
     $("#newcomer").val("");
 })
