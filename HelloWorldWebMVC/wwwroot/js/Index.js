@@ -1,9 +1,10 @@
-﻿$(document).ready(function () {
+﻿'use strict';
+$(document).ready(function () {
     // see https://api.jquery.com/click/
     var connection = new signalR.HubConnectionBuilder().withUrl("/messagehub").build();
 
     deleteMember(); editMember();
-  
+
     connection.on("NewTeamMemberAdded", createNewcomer);
     connection.on("TeamMemberDeleted", deleteMmb);
     connection.on("TeamMemberEdit", editMmb);
@@ -13,8 +14,6 @@
     }).catch(function (err) {
         return console.error(err.toString());
     });
-
-
     //disable createButton when the field is empty
     $('#nameField').on('input change', function () {
         if ($(this).val() != '') {
@@ -23,18 +22,14 @@
             $('#createButton').prop('disabled', true);
         }
     });
-
     //clearButton
     $("#clearButton").click(function () {
         $("#nameField").val("");
         $('#createButton').prop('disabled', true);
     });
-
-
     //add team member button
     $("#createButton").click(function () {
         var newcomerName = $("#nameField").val();
-
         $.ajax({
             method: "POST",
             url: "/Home/AddTeamMember",
@@ -42,13 +37,13 @@
             success: function (result) {
                 var ind = result;
 
-                //$("#team-list").append(
-                //    `<li class="member" data-member-id="${ind}">
-                //        <span class="memberName">${newcomerName}</span>
-                //        <span class="deleteM fa fa-remove" ></span></>
-                //        <span class="edit fa fa-pencil" onClick="editMember()"></span>
-                //    </li>`
-                //);
+                $("#team-list").append(
+                    `<li class="member" data-member-id="${ind}">
+                        <span class="memberName">${newcomerName}</span>
+                        <span class="delete fa fa-remove" ></span></>
+                        <span class="edit fa fa-pencil" onClick="editMember()"></span>
+                    </li>`
+                );
 
                 $("#nameField").val("");
                 $('#createButton').prop('disabled', true);
@@ -60,16 +55,11 @@
             }
         })
     });
-
-
-
     //edit team member by pressing submit button in modal view
     $("#editTeamMember").on("click", "#submit", function () {
-
         var id = $("#editTeamMember").attr('data-member-id');
         var newName = $("#memberName").val();
         console.log('submit changes to server');
-
         $.ajax({
             url: "/Home/EditTeamMember",
             method: "PUT",
@@ -83,18 +73,14 @@
             }
         })
     })
-
     //cancel the edit member
     $("#editTeamMember").on("click", "#cancel", function () {
         console.log('cancel changes');
     })
-
 });
-
-
 //delete button member
 function deleteMember() {
-    $(".deleteM").off("click").click(function () {
+    $(".delete").off("click").click(function () {
         var id = $(this).parent().attr("data-member-id");
         $.ajax({
             url: "/Home/DeleteTeamMember",
@@ -110,27 +96,22 @@ function deleteMember() {
         })
     })
 }
-
 function editMember() {
     //open the Modal View
     $("#team-list").off("click").on("click", ".edit", function () {
         var targetMemberTag = $(this).closest('li');
-
         var id = targetMemberTag.attr('data-member-id');
-        var currentName = targetMemberTag.find(".memberName").text();
-
+        var currentName = targetMemberTag.find(".memberName").text().trim();
         $('#editTeamMember').attr("data-member-id", id);
         $('#memberName').val(currentName);
         $('#editTeamMember').modal('show');
-
     })
 }
-
 function createNewcomer(name, id) {
     // Remember string interpolation
     $("#team-list").append(`<li class="member" data-member-id="${id}">
                         <span class="memberName">${name}</span>
-                        <span class="deleteM fa fa-remove"></span>
+                        <span class="delete fa fa-remove"></span>
                         <span class="edit fa fa-pencil"></span>
                              </li>`);
     deleteMember(); editMember();
