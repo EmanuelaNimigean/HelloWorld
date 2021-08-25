@@ -12,13 +12,12 @@ namespace HelloWorldWeb.Services
     public class TeamService : ITeamService
     {
         private readonly TeamInfo teamInfo;
-        private readonly IHubContext<MessageHub> messageHub;
+        private readonly IBroadcastService broadcastService;
         private ITimeService timeService;
 
-        public TeamService(IHubContext<MessageHub> messageHubContext)
+        public TeamService(IBroadcastService broadcastService)
         {
-            this.messageHub = messageHubContext;
-
+            this.broadcastService = broadcastService;
             this.teamInfo = new TeamInfo
             {
                 Name = "~Team 1~",
@@ -63,15 +62,7 @@ namespace HelloWorldWeb.Services
         {
             TeamMember member = new TeamMember(name, this.timeService);
             this.teamInfo.TeamMembers.Add(member);
-<<<<<<< Updated upstream
-            this.messageHub.Clients.All.SendAsync("NewTeamMemberAdded", name, member.Id);
-=======
-           // if (this.broadcastService != null)
-           // {
-                this.broadcastService.NewTeamMemberAdded(name, member.Id);
-            //}
-
->>>>>>> Stashed changes
+            this.broadcastService.NewTeamMemberAdded(name, member.Id);
             return member.Id;
         }
 

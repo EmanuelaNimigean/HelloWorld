@@ -11,7 +11,6 @@ namespace HelloWorldWeb.Test
 {
     public class TeamServiceTest
     {
-        private ITimeService timeService = null;
         private Mock<IHubContext<MessageHub>> messageHubMock = null;
 
         //[Fact]
