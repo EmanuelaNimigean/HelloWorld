@@ -36,7 +36,7 @@ namespace HelloWorldWebMVC.Controllers
         [HttpPost]
         public int AddTeamMember(string name)
         {
-            return this.teamService.AddTeamMember(name, this.timeService);
+            return this.teamService.AddTeamMember(name);
         }
 
         [HttpDelete]
@@ -66,6 +66,11 @@ namespace HelloWorldWebMVC.Controllers
         public IActionResult Error()
         {
             return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Chat()
+        {
+            return this.View();
         }
     }
 }

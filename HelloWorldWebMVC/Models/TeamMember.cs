@@ -8,6 +8,18 @@ namespace HelloWorldWebMVC.Models
         private static int idCount = 0;
         private readonly ITimeService timeService;
 
+        public TeamMember()
+        {
+            idCount++;
+        }
+
+        public TeamMember(string name)
+        {
+            this.Name = name;
+            this.Id = idCount;
+            idCount++;
+        }
+
         public TeamMember(string name, ITimeService timeService)
         {
             this.timeService = timeService;

@@ -1,7 +1,19 @@
 ﻿$(document).ready(function () {
     // see https://api.jquery.com/click/
+    var connection = new signalR.HubConnectionBuilder().withUrl("/messagehub").build();
 
     deleteMember(); editMember();
+  
+    connection.on("NewTeamMemberAdded", createNewcomer);
+    connection.on("TeamMemberDeleted", deleteMmb);
+    connection.on("TeamMemberEdit", editMmb);
+
+    connection.start().then(function () {
+        console.log("SignalR started")
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
 
     //disable createButton when the field is empty
     $('#nameField').on('input change', function () {
@@ -30,13 +42,13 @@
             success: function (result) {
                 var ind = result;
 
-                $("#team-list").append(
-                    `<li class="member" data-member-id="${ind}">
-                        <span class="memberName">${newcomerName}</span>
-                        <span class="deleteM fa fa-remove" ></span></>
-                        <span class="edit fa fa-pencil" onClick="editMember()"></span>
-                    </li>`
-                );
+                //$("#team-list").append(
+                //    `<li class="member" data-member-id="${ind}">
+                //        <span class="memberName">${newcomerName}</span>
+                //        <span class="deleteM fa fa-remove" ></span></>
+                //        <span class="edit fa fa-pencil" onClick="editMember()"></span>
+                //    </li>`
+                //);
 
                 $("#nameField").val("");
                 $('#createButton').prop('disabled', true);
@@ -113,3 +125,25 @@ function editMember() {
 
     })
 }
+
+function createNewcomer(name, id) {
+    // Remember string interpolation
+    $("#team-list").append(`<li class="member" data-member-id="${id}">
+                        <span class="memberName">${name}</span>
+                        <span class="deleteM fa fa-remove"></span>
+                        <span class="edit fa fa-pencil"></span>
+                             </li>`);
+    deleteMember(); editMember();
+}
+
+var deleteMmb = (id) => {
+    $(`li[data-member-id=${id}]`).remove();
+}
+
+var editMmb = (name, id) => {
+    $(`li[data-member-id=${id}]`).find(".memberName").text(name);
+}
+
+$("#clear").click(function () {
+    $("#newcomer").val("");
+})

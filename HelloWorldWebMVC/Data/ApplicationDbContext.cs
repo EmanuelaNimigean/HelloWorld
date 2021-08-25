@@ -15,5 +15,7 @@ namespace HelloWorldWebMVC.Data
         }
 
         public DbSet<HelloWorldWebMVC.Models.Skill> Skill { get; set; }
+
+        public DbSet<HelloWorldWebMVC.Models.TeamMember> TeamMembers { get; set; }
     }
 }

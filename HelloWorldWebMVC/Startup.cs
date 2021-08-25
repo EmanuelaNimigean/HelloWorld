@@ -33,6 +33,16 @@ namespace HelloWorldWebMVC
 
         public IConfiguration Configuration { get; }
 
+        public static string ConvertHerokuStringToASPNETString(string herokuConnectionString)
+        {
+            var databaseUri = new Uri(herokuConnectionString);
+            var split = databaseUri.UserInfo.Split(':');
+            var username = split[0];
+            var password = split[1];
+            var database = databaseUri.LocalPath.Split('/')[1];
+            return $"Server={databaseUri.Host};Port={databaseUri.Port};Database={database};SslMode=Require;Trust Server Certificate=true;Integrated Security=true;User Id={username};Password={password};";
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -52,9 +62,10 @@ namespace HelloWorldWebMVC
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
-            services.AddSingleton<ITeamService>(new TeamService());
+            services.AddScoped<ITeamService, DbTeamService>();
             services.AddSingleton<ITimeService>(new TimeService());
             services.AddSingleton<IWeatherControllerSettings, WeatherControllerSettings>();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,6 +100,7 @@ namespace HelloWorldWebMVC
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<MessageHub>("/messagehub");
             });
         }
     }
