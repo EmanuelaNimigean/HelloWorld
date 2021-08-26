@@ -9,7 +9,7 @@
 @section AdditionalStyles {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 }
-@section ModalWindows {
+@section ModalWindow {
     <!-- Modal -->
     <div class="modal fade" id="editClassmate" role="dialog">
         <div class="modal-dialog">
@@ -35,7 +35,8 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Our team</h1>
+    <h1 class="display-4">~Team1~</h1>
+    <h2 class="display-3">Team members:</h2>
     <ul id="list">
         @for (var i = 0; i < Model.TeamMembers.Count; i++)
         {
@@ -45,7 +46,7 @@
             <li class="member" data-member-id="@member.Id">
                 <span class="memberName" id="@member.Name">@member.Name</span>
                 <span class="delete fa fa-remove" id="deleteMember"></span>
-                <span class="pencil fa fa-pencil" ></span>
+                <span class="pencil fa fa-pencil"></span>
             </li>
         }
     </ul>
