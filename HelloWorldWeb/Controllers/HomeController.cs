@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 
 namespace HelloWorldWeb.Controllers
 {
+    [Authorize]
+    [AllowAnonymous]
     public class HomeController : Controller
     {
 #pragma warning disable IDE0052 // Remove unread private members
@@ -26,21 +28,18 @@ namespace HelloWorldWeb.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public int AddTeamMember(string name)
         {
             return this.teamService.AddTeamMember(name);
         }
 
         [HttpDelete]
-        [Authorize]
         public void DeleteTeamMember(int id)
         {
             this.teamService.DeleteTeamMember(id);
         }
 
         [HttpPost]
-        [Authorize]
         public void EditTeamMemberName(string name, int id)
         {
             this.teamService.EditTeamMemberName(name, id);
