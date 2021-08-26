@@ -31,14 +31,14 @@ namespace HelloWorldWeb.Controllers
         {
             var user = await this.userManager.FindByIdAsync(id);
             await this.userManager.AddToRoleAsync(user, "Admin");
-            return this.View("Index", await this.userManager.Users.ToListAsync());
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         public async Task<IActionResult> AssignNormalUser(string id)
         {
             var user = await this.userManager.FindByIdAsync(id);
             await this.userManager.RemoveFromRoleAsync(user, "Admin");
-            return this.View("Index", await this.userManager.Users.ToListAsync());
+            return this.RedirectToAction(nameof(this.Index));
         }
         //// GET: Users/Details/5
         //public async Task<IActionResult> Details(int? id)
