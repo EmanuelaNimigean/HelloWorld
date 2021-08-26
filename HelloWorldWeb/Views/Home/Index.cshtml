@@ -9,6 +9,8 @@
 @section AdditionalStyles {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 }
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
 @section ModalWindow {
     <!-- Modal -->
     <div class="modal fade" id="editClassmate" role="dialog">
@@ -43,15 +45,25 @@
             var member = Model.TeamMembers[i];
 
 
-            <li class="member" data-member-id="@member.Id">
-                <span class="memberName" id="@member.Name">@member.Name</span>
+        <li class="member" data-member-id="@member.Id">
+            <span class="memberName" id="@member.Name">@member.Name</span>
+            @if (SignInManager.IsSignedIn(User))
+            {
                 <span class="delete fa fa-remove" id="deleteMember"></span>
                 <span class="pencil fa fa-pencil"></span>
+            }
             </li>
         }
     </ul>
-    <input type="text" id="nameField" title="e.g. Radu" />
-    <button type="submit" disabled="disabled" class="btn-dark" id="createButton" title="Create">Create</button>
-    <button id="clearButton" title="Clear">Clear</button>
 
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <input type="text" id="nameField" title="e.g. Radu" />
+        <button type="submit" disabled="disabled" class="btn-dark" id="createButton" title="Create">Create</button>
+        <button id="clearButton" title="Clear">Clear</button>
+    }
+            else
+            {
+                <h2>Please, login to be able to operate on database!</h2>
+            }
 </div>
