@@ -5,17 +5,17 @@
 using System;
 using System.IO;
 using System.Reflection;
+using HelloWorldWeb.Data;
 using HelloWorldWeb.Services;
 using HelloWorldWebApp.Controllers;
-using HelloWorldWeb.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace HelloWorldWeb
 {
@@ -46,8 +46,10 @@ namespace HelloWorldWeb
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     this.Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                    .AddRoles<IdentityRole>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddSingleton<IWeatherControllerSettings, WeatherControllerSettings>();
             services.AddSwaggerGen(c =>
@@ -73,7 +75,6 @@ namespace HelloWorldWeb
                 app.UseMigrationsEndPoint();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
-
             }
             else
             {
