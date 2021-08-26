@@ -1,6 +1,7 @@
 ## ! HelloWorldWeb is the current version of the project, not HelloWorldWebMVC
 
-
+[![Build status](https://ci.appveyor.com/api/projects/status/y0reigvxgct4vmgq/branch/master?svg=true)](https://ci.appveyor.com/project/richardszalay/helix-publishing-targets/branch/master) 
+Heroku deplyed app: https://ema-hww.herokuapp.com/
 # HelloWorldWeb
 ## How to deploy to Keroku:
 
