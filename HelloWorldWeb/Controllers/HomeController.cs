@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using HelloWorldWeb.Models;
 using HelloWorldWeb.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -31,6 +32,7 @@ namespace HelloWorldWeb.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         public void DeleteTeamMember(int id)
         {
             this.teamService.DeleteTeamMember(id);
