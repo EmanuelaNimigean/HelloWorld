@@ -26,6 +26,7 @@ namespace HelloWorldWeb.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public int AddTeamMember(string name)
         {
             return this.teamService.AddTeamMember(name);
@@ -39,6 +40,7 @@ namespace HelloWorldWeb.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public void EditTeamMemberName(string name, int id)
         {
             this.teamService.EditTeamMemberName(name, id);
