@@ -1,8 +1,7 @@
 ## ! HelloWorldWeb is the current version of the project, not HelloWorldWebMVC
 
-[![Build status](https://ci.appveyor.com/api/projects/status/y0reigvxgct4vmgq/branch/master?svg=true)](https://ci.appveyor.com/project/richardszalay/helix-publishing-targets/branch/master) 
-![example workflow](https://github.com/EmanuelaNimigean/HelloWorld/actions/runs/1171019185/workflow)
-Heroku deplyed app: https://ema-hww.herokuapp.com/
+![example workflow](https://github.com/EmanuelaNimigean/HelloWorld/actions/runs/1171019185/workflow/badge.svg)
+      Heroku deplyed app: https://ema-hww.herokuapp.com/
 # HelloWorldWeb
 ## How to deploy to Keroku:
 
