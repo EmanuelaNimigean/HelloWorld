@@ -64,6 +64,7 @@ namespace HelloWorldWeb
 
             services.AddSignalR();
             services.AddSingleton<IBroadcastService, BroadcastService>();
+            this.AssignRoleProgrammaticaly(services.BuildServiceProvider());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -100,6 +101,13 @@ namespace HelloWorldWeb
                 endpoints.MapRazorPages();
                 endpoints.MapHub<MessageHub>("/messagehub");
             });
+        }
+
+        private async void AssignRoleProgrammaticaly(IServiceProvider services)
+        {
+            var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+            var user = await userManager.FindByEmailAsync("aaaa@yahoo.com");
+            await userManager.AddToRoleAsync(user, "Admin");
         }
     }
 }

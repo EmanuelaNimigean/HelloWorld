@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelloWorldWeb.Controllers
 {
-    [Authorize(Roles ="Administrators")]
+    [Authorize(Roles ="Admin")]
     public class SkillsController : Controller
     {
         private readonly ApplicationDbContext context;
