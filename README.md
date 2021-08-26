@@ -1,6 +1,7 @@
 ## ! HelloWorldWeb is the current version of the project, not HelloWorldWebMVC
 
 ![.NET](https://github.com/EmanuelaNimigean/HelloWorld/actions/runs/1171019185/workflow)
+![example workflow](https://github.com/EmanuelaNimigean/HelloWorld/actions/workflows/dotnet.yml/badge.svg)
       Heroku deplyed app: https://ema-hww.herokuapp.com/
 # HelloWorldWeb
 ## How to deploy to Keroku:
