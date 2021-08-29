@@ -25,11 +25,11 @@ heroku container:login
 
 -build the Dockerfile in the current directory and push the container
 ```
-heroku container:push -a ema_hww_container web
+heroku container:push -a ema-hww web
 ```
 
 -release the container.
 ```
-heroku container:release -a ema_hww_container web
+heroku container:release -a ema-hww web
 
 ```
